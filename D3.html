@@ -172,7 +172,7 @@
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                    <button type="button" class="btn viewbtn btn-sm btn-outline-secondary">
                       View
                     </button>
                     <button type="button" class="btn btn-sm btn-outline-secondary">
@@ -414,7 +414,7 @@
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                    <button type="button" class="btn viewbtn btn-sm btn-outline-secondary">
                       View
                     </button>
                     <button type="button" class="btn btn-sm btn-outline-secondary">
@@ -442,6 +442,138 @@
       </p>
     </div>
   </footer>
+  
+  
+  <script>
+      const imageBtn = document.querySelector('.btn-primary')
+      const secImageBtn = document.querySelector('.btn-secondary')
+      const modals = document.querySelector('.viewbtn')
+        
+      imageBtn.addEventListener('click', getfirstImage);
+      secImageBtn.addEventListener('click', getSecImage);
+      modals.addEventListener('click', modalFun);
+      
+      function getfirstImage() {
+        document.querySelector('.album .container .row').innerHTML = ''
+        const url = 'http://www.splashbase.co/api/v1/images/search?query=laptop'
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                for (let i = 0; i < data.images.length; i++) {
+                    const element = data.images[i];
+
+                    let content = document.createElement('div')
+                    content.className = 'col-md-4'
+
+                    content.innerHTML =
+                    `<div class="card mb-4 shadow-sm">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="225" src=${element.url} />
+                        <div class="card-body">
+                            <p class="card-text">
+                            This is a wider card with supporting text below as a natural
+                            lead-in to additional content. This content is a little bit
+                            longer.
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">
+                                View
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">
+                                Edit
+                                </button>
+                            </div>
+                            <small class="text-muted">9 mins</small>
+                            </div>
+                        </div>
+                    </div>`
+                    
+                    document.querySelector('.album .container .row').appendChild(content)
+                }
+
+            }).catch(err => {
+            console.error('Error: ', err);
+        });
+      }
+  
+      
+      function getSecImage() {
+        document.querySelector('.album .container .row').innerHTML = ''
+        const url = 'http://www.splashbase.co/api/v1/images/search?query=house'
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                //console.log(data.images)
+                
+
+                for (let i = 0; i < data.images.length; i++) {
+                    const element = data.images[i];
+
+                    let content = document.createElement('div')
+                    content.className = 'col-md-4'
+
+                    content.innerHTML =
+                    `<div class="card mb-4 shadow-sm">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="225" src=${element.url} />
+                        <div class="card-body">
+                            <p class="card-text">
+                            This is a wider card with supporting text below as a natural
+                            lead-in to additional content. This content is a little bit
+                            longer.
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">
+                                View
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">
+                                Edit
+                                </button>
+                            </div>
+                            <small class="text-muted">9 mins</small>
+                            </div>
+                        </div>
+                    </div>`
+                    
+                    document.querySelector('.album .container .row').appendChild(content)
+                }
+
+            }).catch(err => {
+            console.error('Error: ', err);
+        });
+      }
+      function modalFun() {
+        const url = 'http://www.splashbase.co/api/v1/images/search?query=music'
+       
+        
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                    //const element = data.images;
+                
+                    let content = document.createElement('div')
+                    content.className = 'modal-body'
+
+                    content.innerHTML =
+                    `<div class="modal-body">
+                      <h5>Popover in a modal</h5>
+                      <img class="bd-placeholder-img card-img-top" width="100%" height="225" src= />
+                      <hr>
+                      <h5>Tooltips in a modal</h5>
+                      <p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> have tooltips on hover.</p>
+                    </div>`
+                    
+                    //document.querySelector('.album .container .row').appendChild(content)
+                
+
+            }).catch(err => {
+            console.error('Error: ', err);
+        });
+        
+      }
+  
+  
+  </script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
   </script>
