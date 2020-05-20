@@ -429,6 +429,25 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+           
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="text-muted">
@@ -447,11 +466,16 @@
   <script>
       const imageBtn = document.querySelector('.btn-primary')
       const secImageBtn = document.querySelector('.btn-secondary')
-      const modals = document.querySelector('.viewbtn')
+      const modals = document.querySelectorAll('.viewbtn')
+      
+      for (let i = 0; i < modals.length; i++) {
+        const element = modals[i];
+        element.addEventListener('click', modalFun);
+      }
         
       imageBtn.addEventListener('click', getfirstImage);
       secImageBtn.addEventListener('click', getSecImage);
-      modals.addEventListener('click', modalFun);
+      
       
       function getfirstImage() {
         document.querySelector('.album .container .row').innerHTML = ''
@@ -476,7 +500,7 @@
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <button type="button" class="btn btn-sm viewbtn btn-outline-secondary">
                                 View
                                 </button>
                                 <button type="button" class="btn btn-sm btn-outline-secondary">
@@ -523,7 +547,7 @@
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <button type="button" class="btn btn-sm viewbtn btn-outline-secondary">
                                 View
                                 </button>
                                 <button type="button" class="btn btn-sm btn-outline-secondary">
@@ -543,27 +567,25 @@
         });
       }
       function modalFun() {
+        $('#exampleModal').modal('show');
         const url = 'http://www.splashbase.co/api/v1/images/search?query=music'
        
         
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                    //const element = data.images;
+                    const element = data.images[0];
                 
-                    let content = document.createElement('div')
-                    content.className = 'modal-body'
+                    let content = document.querySelector(".modal-body")
+                    
 
                     content.innerHTML =
-                    `<div class="modal-body">
+                    `
                       <h5>Popover in a modal</h5>
-                      <img class="bd-placeholder-img card-img-top" width="100%" height="225" src= />
-                      <hr>
-                      <h5>Tooltips in a modal</h5>
-                      <p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> have tooltips on hover.</p>
-                    </div>`
+                      <img class="bd-placeholder-img card-img-top" width="100%" height="225" src=${element.url} />                      
+                    `
                     
-                    //document.querySelector('.album .container .row').appendChild(content)
+                    //document.querySelector('.modal-body').appendChild(content)
                 
 
             }).catch(err => {
